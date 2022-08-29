@@ -23,6 +23,7 @@ model User {
 }
 
 
+
 model UserAccount {
   @@id([id_user,id_logist])
 

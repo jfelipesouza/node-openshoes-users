@@ -1,7 +1,9 @@
+import 'express-async-errors'
 import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
-//import { router } from '../routes'
+import { router } from '../routes'
+import { BugLaucher } from '../middlewares/errors'
 
 // Created server
 const app = express()
@@ -11,8 +13,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 app.use(morgan('dev'))
-
-// Set endpoints
-//app.use('/', router)
+app.use('/', router)
+app.use(BugLaucher)
 
 export { app }
