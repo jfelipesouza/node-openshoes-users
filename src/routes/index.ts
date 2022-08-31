@@ -26,9 +26,9 @@ router.get('/users', async (req: Request, res: Response) => {
     users
   })
 })
-router.get('/user', ensureAuthenticated, (req, res) => {
+router.put('/user/:id', (req, res) => {
   res.send({
-    user: [{ name: 'felipe', email: 'jf@souza.com' }]
+    user: req.params.id
   })
 })
 

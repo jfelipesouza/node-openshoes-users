@@ -6,7 +6,7 @@ const BugLaucher = (
   response: Response,
   next: NextFunction
 ) => {
-  return response.json({ status: 'Error', message: error.message })
+  return response.status(401).send({ status: 'Error', message: error.message })
 }
 
 export { BugLaucher }

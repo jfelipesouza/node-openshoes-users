@@ -12,7 +12,7 @@ datasource db {
 
 
 model User {
-  id               String          @id @default(uuid())
+  id               String          @id @unique @default(uuid())
   email            String          @unique
   password         String     
   type             String
@@ -37,11 +37,25 @@ model UserAccount {
 
 
 model Logist {
-  id                String    @id @default(uuid())
-  store_name        String    @unique
-  cnpj              String
+  id                String          @id @unique @default(uuid())
+  store_name        String          @unique
+  cnpj              String          @unique
   phone             Int   
-  user_account     UserAccount[]   @relation("logist")
+  user_account      UserAccount[]   @relation("logist")
+  store             Store?          @relation("logist")
+  code              String          @unique @default(uuid())
 
   @@map("logists")   
+}
+
+
+model Store {
+  logist            Logist          @relation("logist",fields: [logist_id],references: [cnpj])
+  logist_id         String          @unique
+  id                String          @id @default(uuid())
+  store_type        String       
+  address           String?       
+  link              String?
+
+  @@map("stores")
 }

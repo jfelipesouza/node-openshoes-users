@@ -1,10 +1,10 @@
 import { compare } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
-import { IUserAutheticate } from '../../@types/interfaces/user'
+import { UserDto } from '../../@types/interfaces/user'
 import { client } from '../../prisma/client'
 
 export class AuthenticateUserUseCase {
-  async execute({ email, password }: IUserAutheticate) {
+  async execute({ email, password }: UserDto) {
     const userExists = await client.user.findFirst({
       where: {
         email
@@ -12,7 +12,7 @@ export class AuthenticateUserUseCase {
     })
 
     if (!userExists) {
-      throw new Error('User or password incorrect!')
+      throw new Error('User  or password incorrect!')
     }
 
     // Verificar senha do usuario

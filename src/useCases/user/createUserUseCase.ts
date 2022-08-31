@@ -14,7 +14,7 @@ export class CreateUserUseCase {
       throw new Error('User already exists!')
     }
     // Cadastrar novo usuario
-    const passwordHash = await hash(password, 8)
+    const passwordHash = await hash(password, 10)
     const user = await client.user.create({
       data: {
         email,

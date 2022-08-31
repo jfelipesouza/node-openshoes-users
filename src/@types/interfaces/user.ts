@@ -4,7 +4,7 @@ type IUser = {
   type: string
 }
 
-type IUserAutheticate = {
+type UserDto = {
   email: string
   password: string
 }
@@ -17,4 +17,4 @@ type ILogist = {
 
 type IUserLogist = IUser & ILogist
 
-export { IUser, ILogist, IUserLogist, IUserAutheticate }
+export { IUser, ILogist, IUserLogist, UserDto }
