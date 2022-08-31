@@ -1,9 +1,10 @@
+import { User } from '@prisma/client'
 import { hash } from 'bcryptjs'
 import { IUser } from '../../@types/interfaces/user'
 import { client } from '../../prisma/client'
 
 export class CreateUserUseCase {
-  async execute({ email, password, type }: IUser) {
+  async execute({ email, password, type }: IUser): Promise<User> {
     // Verificar se o usuario existe
     const userAlreadyExists = await client.user.findFirst({
       where: {
