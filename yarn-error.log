@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\jsouza2\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add @types/dayjs -D
+  C:\Program Files\nodejs\node.exe C:\Users\jsouza2\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add --dev prisma@latest │
 
 PATH: 
   C:\Python310\Scripts\;C:\Python310\;C:\Program Files\Eclipse Foundation\jdk-11.0.12.7-hotspot\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files\OpenJDK\openjdk-11.0.13_8\bin;C:\Users\jsouza2\AppData\Local\Yarn\bin;C:\Android\Sdk\emulator;C:\Android\Sdk\tools;C:\Android\Sdk\tools\bin;C:\Android\Sdk\platform-tools;C:\Program Files\nodejs\;C:\Users\jsouza2\AppData\Local\Microsoft\WindowsApps;C:\Users\jsouza2\AppData\Local\Programs\Git\cmd;C:\Program Files\heroku\bin;C:\Users\jsouza2\AppData\Roaming\npm;C:\Users\jsouza2\AppData\Local\Programs\Microsoft VS Code\bin
@@ -14,17 +14,15 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fdayjs: Not found
-      at Request.params.callback [as _callback] (C:\Users\jsouza2\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66145:18)
-      at Request.self.callback (C:\Users\jsouza2\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140890:22)
-      at Request.emit (node:events:527:28)
-      at Request.<anonymous> (C:\Users\jsouza2\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141862:10)
-      at Request.emit (node:events:527:28)
-      at IncomingMessage.<anonymous> (C:\Users\jsouza2\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141784:12)
-      at Object.onceWrapper (node:events:641:28)
-      at IncomingMessage.emit (node:events:539:35)
-      at endReadableNT (node:internal/streams/readable:1345:12)
-      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+  TypeError [ERR_UNESCAPED_CHARACTERS]: https://registry.yarnpkg.com/│: Request path contains unescaped characters
+      at new NodeError (node:internal/errors:372:5)
+      at new ClientRequest (node:_http_client:160:13)
+      at Object.request (node:https:353:10)
+      at Request.module.exports.Request.start (C:\Users\jsouza2\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141452:32)
+      at Request.module.exports.Request.end (C:\Users\jsouza2\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:142211:10)
+      at end (C:\Users\jsouza2\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141265:14)
+      at Immediate.<anonymous> (C:\Users\jsouza2\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141279:7)
+      at processImmediate (node:internal/timers:466:21)
 
 npm manifest: 
   {

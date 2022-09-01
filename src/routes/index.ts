@@ -1,14 +1,9 @@
 import { Request, Response, Router } from 'express'
-import { ensureAuthenticated } from '../middlewares/authenticate'
 import { client } from '../prisma/client'
 import { AuthenticateUserController } from '../useCases/authenticateUser/authenticateUserController'
-import { UserController } from '../useCases/user/UserController'
+import { userRoutes } from './user-routes'
 
 const router = Router()
-
-// User Controler
-
-const createUserController = new UserController()
 const authenticateUser = new AuthenticateUserController()
 
 const port = process.env.PORT
@@ -18,17 +13,11 @@ router.get('/', (req, res) => {
 })
 
 // User Routes
-
-router.post('/users', createUserController.create)
+router.use('/user', userRoutes)
 router.get('/users', async (req: Request, res: Response) => {
   const users = await client.user.findMany()
   return res.send({
     users
-  })
-})
-router.put('/user/:id', (req, res) => {
-  res.send({
-    user: req.params.id
   })
 })
 

@@ -23,6 +23,33 @@ export class AuthenticateUserUseCase {
       throw new Error('User or password incorrect!')
     }
 
+    // Verificar se o usuario é logista ou cliente
+
+    if (userExists.type === 'logist') {
+      const userLogistAccount = await client.userAccount.findFirst({
+        where: {
+          id_user: userExists.id
+        }
+      })
+      const userLogist = await client.logist.findFirst({
+        where: {
+          id: userLogistAccount.id_logist
+        }
+      })
+
+      const user = {
+        email: userExists.email,
+        type: userExists.type,
+        ...userLogist
+      }
+      const token = sign(user, 'pokemon', {
+        subject: userExists.id,
+        expiresIn: '1h'
+      })
+
+      return token
+    }
+
     const token = sign(userExists, 'pokemon', {
       subject: userExists.id,
       expiresIn: '1h'

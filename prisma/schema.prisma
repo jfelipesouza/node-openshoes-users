@@ -42,20 +42,10 @@ model Logist {
   cnpj              String          @unique
   phone             Int   
   user_account      UserAccount[]   @relation("logist")
-  store             Store?          @relation("logist")
-  code              String          @unique @default(uuid())
-
-  @@map("logists")   
-}
-
-
-model Store {
-  logist            Logist          @relation("logist",fields: [logist_id],references: [cnpj])
-  logist_id         String          @unique
-  id                String          @id @default(uuid())
   store_type        String       
   address           String?       
   link              String?
+  code              String          @unique @default(uuid())
 
-  @@map("stores")
+  @@map("logists")   
 }
