@@ -1,15 +1,15 @@
-interface IUser {
+export interface IUser {
   email: String
   password: String
   type: String
 }
 
-interface UserDto {
+export interface UserDto {
   email: String
   password: String
 }
 
-interface ILogist {
+export interface ILogist {
   store_name: String
   phone: number
   cnpj: String
@@ -17,5 +17,3 @@ interface ILogist {
   address?: String
   link?: String
 }
-
-export { IUser, ILogist, UserDto }
