@@ -11,16 +11,4 @@ const createLogistController = new CreateLogistController()
 
 userRoutes.post('/', createUserController.create)
 userRoutes.post('/logist', createLogistController.create)
-userRoutes.get('/:id', ensureAuthenticated, async (req, res) => {
-  const id = req.params.id
-  const user = await client.user.findFirst({
-    where: {
-      id
-    }
-  })
-  return res.send({
-    user
-  })
-})
-
 export { userRoutes }
