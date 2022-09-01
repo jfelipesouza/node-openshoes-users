@@ -1,23 +1,21 @@
-type IUser = {
-  email: string
-  password: string
-  type: string
+interface IUser {
+  email: String
+  password: String
+  type: String
 }
 
-type UserDto = {
-  email: string
-  password: string
+interface UserDto {
+  email: String
+  password: String
 }
 
-type ILogist = {
-  store_name: string
+interface ILogist {
+  store_name: String
   phone: number
-  cnpj: string
-  store_type: string
-  address?: string
-  link?: string
+  cnpj: String
+  store_type: String
+  address?: String
+  link?: String
 }
 
-type IUserLogist = IUser & ILogist
-
-export { IUser, ILogist, IUserLogist, UserDto }
+export { IUser, ILogist, UserDto }
