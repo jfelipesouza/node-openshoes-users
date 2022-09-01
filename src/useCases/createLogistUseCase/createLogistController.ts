@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import { IUserLogist } from '../../@types/interfaces/user'
 import { client } from '../../prisma/client'
 import { CreateUserUseCase } from '../user/createUserUseCase'
 import { CreateLogistUseCase } from './createLogistUseCase'
@@ -31,7 +30,7 @@ export class CreateLogistController {
       link
     })
 
-    const createUserAccount = await client.userAccount.create({
+    await client.userAccount.create({
       data: {
         id_user: user.id,
         id_logist: logist.id
