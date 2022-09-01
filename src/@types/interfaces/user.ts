@@ -1,19 +1,19 @@
 export interface IUser {
-  email: String
-  password: String
-  type: String
+  email: string
+  password: string
+  type: string
 }
 
 export interface UserDto {
-  email: String
-  password: String
+  email: string
+  password: string
 }
 
 export interface ILogist {
-  store_name: String
+  store_name: string
   phone: number
-  cnpj: String
-  store_type: String
-  address?: String
-  link?: String
+  cnpj: string
+  store_type: string
+  address?: string
+  link?: string
 }
