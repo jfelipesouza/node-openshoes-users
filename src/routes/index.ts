@@ -24,8 +24,4 @@ router.get('/users', async (req: Request, res: Response) => {
 // Authenticate Route
 router.post('/login', authenticateUser.handle)
 
-// Logist Routes
-
-// Store Routes
-
 export { router }
