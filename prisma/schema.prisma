@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("DATABASE_URL")
 }
 
 
@@ -48,4 +49,23 @@ model Logist {
   code              String          @unique @default(uuid())
 
   @@map("logists")   
+}
+
+model category {
+  id      BigInt    @id @default(autoincrement())
+  type    String    @unique(map: "uk_c2491gxyu6bsjw346i1fgojqf") @db.VarChar(50)
+  product product[]
+}
+
+model product {
+  id          BigInt    @id @default(autoincrement())
+  created_at  DateTime? @db.Timestamp(6)
+  image       String    @db.VarChar(255)
+  logist_code String    @db.VarChar(255)
+  model       String    @db.VarChar(50)
+  price       Float
+  size        Bytes
+  update_at   DateTime? @db.Timestamp(6)
+  category_id BigInt?
+  category    category? @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk1mtsbur82frn64de7balymq9s")
 }
