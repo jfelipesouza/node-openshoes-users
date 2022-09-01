@@ -1,6 +1,4 @@
 import { Router } from 'express'
-import { ensureAuthenticated } from '../../middlewares/authenticate'
-import { client } from '../../prisma/client'
 import { CreateLogistController } from '../../useCases/createLogistUseCase/createLogistController'
 import { UserController } from '../../useCases/user/UserController'
 
