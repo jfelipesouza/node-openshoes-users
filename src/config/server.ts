@@ -12,7 +12,7 @@ const app = express()
 // Set Middlewares
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(cors(corsConfig))
+app.use(cors())
 app.use(morgan('dev'))
 app.use('/', router)
 app.use(BugLaucher)
