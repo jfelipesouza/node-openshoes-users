@@ -1,63 +1,57 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider          = "postgresql"
-  url               = env("DATABASE_URL")
-  shadowDatabaseUrl = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-
 model User {
-  id               String          @id @unique @default(uuid())
-  email            String          @unique
-  password         String     
-  type             String
-  created_at       DateTime        @default(now())
-  update_at        DateTime        @updatedAt     
-  user_account     UserAccount[]   @relation("user")
+  id           String        @id @unique @default(uuid())
+  email        String        @unique
+  password     String
+  type         String
+  created_at   DateTime      @default(now())
+  update_at    DateTime      @updatedAt
+  user_account UserAccount[] @relation("user")
+
   @@map("users")
 }
 
-
-
 model UserAccount {
-  @@id([id_user,id_logist])
+  id_user   String
+  id_logist String
+  logist    Logist @relation("logist", fields: [id_logist], references: [id])
+  user      User   @relation("user", fields: [id_user], references: [id])
 
-  user        User       @relation("user",fields: [id_user],references: [id])
-  id_user     String
-  logist      Logist     @relation("logist",fields: [id_logist],references: [id])
-  id_logist   String
-
+  @@id([id_user, id_logist])
   @@map("users_accounts")
 }
 
-
 model Logist {
-  id                String          @id @unique @default(uuid())
-  store_name        String          @unique
-  cnpj              String          @unique
-  phone             Int   
-  user_account      UserAccount[]   @relation("logist")
-  store_type        String       
-  address           String?       
-  link              String?
-  code              String          @unique @default(uuid())
+  id           String        @id @unique @default(uuid())
+  store_name   String        @unique
+  cnpj         String        @unique
+  phone        Int
+  store_type   String
+  address      String?
+  link         String?
+  code         String        @unique @default(uuid())
+  user_account UserAccount[] @relation("logist")
 
-  @@map("logists")   
+  @@map("logists")
 }
 
-model category {
+model Category {
   id      BigInt    @id @default(autoincrement())
   type    String    @unique(map: "uk_c2491gxyu6bsjw346i1fgojqf") @db.VarChar(50)
-  product product[]
+  product Product[]
+
+  @@map("category")
 }
 
-model product {
+model Product {
   id          BigInt    @id @default(autoincrement())
   created_at  DateTime? @db.Timestamp(6)
   image       String    @db.VarChar(255)
@@ -67,5 +61,7 @@ model product {
   size        Bytes
   update_at   DateTime? @db.Timestamp(6)
   category_id BigInt?
-  category    category? @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk1mtsbur82frn64de7balymq9s")
+  category    Category? @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk1mtsbur82frn64de7balymq9s")
+
+  @@map("product")
 }
