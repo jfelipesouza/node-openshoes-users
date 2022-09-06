@@ -53,6 +53,7 @@ model Category {
 
 model Product {
   id          BigInt    @id @default(autoincrement())
+  available   Boolean?
   created_at  DateTime? @db.Timestamp(6)
   image       String    @db.VarChar(255)
   logist_code String    @db.VarChar(255)
