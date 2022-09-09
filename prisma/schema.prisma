@@ -58,7 +58,7 @@ model Stores {
   address     String?
   link        String?
   logistStore LogistStores[] @relation("stores")
-  invetory    StoreStock?    @relation("store")
+  invetory    StoreStock[]   @relation("store")
 
   created_at DateTime @default(now())
   update_at  DateTime @updatedAt
@@ -72,7 +72,7 @@ model StoreStock {
   store      Stores  @relation("store", fields: [store_id], references: [id])
   product    Product @relation("product", fields: [product_id], references: [id])
 
-  @@id([store_id])
+  @@id([store_id,product_id])
   @@map("store_stocks")
 }
 
