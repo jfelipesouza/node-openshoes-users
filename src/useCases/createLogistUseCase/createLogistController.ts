@@ -5,30 +5,13 @@ import { CreateLogistUseCase } from './createLogistUseCase'
 
 export class CreateLogistController {
   async create(req: Request, res: Response) {
-    const {
-      cnpj,
-      phone,
-      store_name,
-      email,
-      password,
-      type,
-      store_type,
-      address,
-      link
-    } = req.body
+    const { type, email, password } = req.body
 
     const createLogistUseCase = new CreateLogistUseCase()
     const createUserUseCase = new CreateUserUseCase()
 
     const user = await createUserUseCase.execute({ email, password, type })
-    const logist = await createLogistUseCase.execute({
-      cnpj,
-      phone,
-      store_name,
-      store_type,
-      address,
-      link
-    })
+    const logist = await createLogistUseCase.execute()
 
     await client.userAccount.create({
       data: {
@@ -37,6 +20,12 @@ export class CreateLogistController {
       }
     })
 
-    return res.status(200).send(logist)
+    return res.status(200).send({
+      id: logist.id,
+      code: logist.code,
+      email,
+      type,
+      password: user.password
+    })
   }
 }

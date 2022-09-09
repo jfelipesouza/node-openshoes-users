@@ -37,11 +37,46 @@ export class AuthenticateUserUseCase {
         }
       })
 
+      const relation = await client.logistStores.findFirst({
+        where: {
+          logist_id: userLogist.code
+        }
+      })
+      if (relation) {
+        const store = await client.stores.findFirst({
+          where: {
+            id: relation.store_id
+          }
+        })
+        const user = {
+          id: userLogist.id,
+          email: userExists.email,
+          code: userLogist.code,
+          type: userExists.type,
+          store: {
+            id: store.id,
+            cnpj: store.cnpj,
+            store_type: store.store_type,
+            store_name: store.store_name,
+            address: store.address,
+            link: store.link
+          }
+        }
+        console.log(store)
+        const token = sign(user, 'pokemon', {
+          subject: userExists.id,
+          expiresIn: '1h'
+        })
+
+        return token
+      }
       const user = {
         email: userExists.email,
         type: userExists.type,
+        store: '',
         ...userLogist
       }
+
       const token = sign(user, 'pokemon', {
         subject: userExists.id,
         expiresIn: '1h'

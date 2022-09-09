@@ -9,11 +9,7 @@ export interface UserDto {
   password: string
 }
 
-export interface ILogist {
-  store_name: string
-  phone: number
-  cnpj: string
-  store_type: string
-  address?: string
-  link?: string
+export interface LogistDTO {
+  id: string
+  code: string
 }

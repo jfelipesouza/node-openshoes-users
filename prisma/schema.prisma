@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
 }
 
 model User {
@@ -30,17 +30,50 @@ model UserAccount {
 }
 
 model Logist {
-  id           String        @id @unique @default(uuid())
-  store_name   String        @unique
-  cnpj         String        @unique
-  phone        Int
-  store_type   String
-  address      String?
-  link         String?
-  code         String        @unique @default(uuid())
-  user_account UserAccount[] @relation("logist")
+  id           String         @id @unique @default(uuid())
+  code         String         @unique @default(uuid())
+  user_account UserAccount[]  @relation("logist")
+  stores       LogistStores[] @relation("logists")
+  created_at   DateTime       @default(now())
+  update_at    DateTime       @updatedAt
 
   @@map("logists")
+}
+
+model LogistStores {
+  store_id   String
+  logist_id  String
+  logist     Logist?   @relation("logists", fields: [logist_id], references: [code])
+  user       Stores   @relation("stores", fields: [store_id], references: [id])
+
+  @@id([logist_id,store_id])
+  @@map("logist_stores")
+}
+
+model Stores {
+  id          String         @id @unique @default(uuid())
+  store_name  String         @unique
+  cnpj        String         @unique
+  store_type  String
+  address     String?
+  link        String?
+  logistStore LogistStores[] @relation("stores")
+  invetory    StoreStock?    @relation("store")
+
+  created_at DateTime @default(now())
+  update_at  DateTime @updatedAt
+
+  @@map("stores")
+}
+
+model StoreStock {
+  store_id   String
+  product_id BigInt  @unique
+  store      Stores  @relation("store", fields: [store_id], references: [id])
+  product    Product @relation("product", fields: [product_id], references: [id])
+
+  @@id([store_id])
+  @@map("store_stocks")
 }
 
 model Category {
@@ -52,17 +85,18 @@ model Category {
 }
 
 model Product {
-  id          BigInt    @id @default(autoincrement())
+  id          BigInt      @id @unique @default(autoincrement())
+  store       StoreStock? @relation("product")
   available   Boolean?
-  created_at  DateTime? @db.Timestamp(6)
-  image       String    @db.VarChar(255)
-  logist_code String    @db.VarChar(255)
-  model       String    @db.VarChar(50)
+  created_at  DateTime?   @db.Timestamp(6)
+  image       String      @db.VarChar(255)
+  logist_code String      @db.VarChar(255)
+  model       String      @db.VarChar(50)
   price       Float
   size        Bytes
-  update_at   DateTime? @db.Timestamp(6)
+  update_at   DateTime?   @db.Timestamp(6)
   category_id BigInt?
-  category    Category? @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk1mtsbur82frn64de7balymq9s")
+  category    Category?   @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk1mtsbur82frn64de7balymq9s")
 
   @@map("product")
 }
