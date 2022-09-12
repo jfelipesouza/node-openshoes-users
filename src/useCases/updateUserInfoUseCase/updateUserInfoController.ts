@@ -7,7 +7,6 @@ export class UpdateUserInfoController {
     console.log(userData)
     const updateUserInfo = new UpdateUserInfoUseCase()
     const user = await updateUserInfo.execute(userData)
-
     return res.status(200).send(user)
   }
 }
