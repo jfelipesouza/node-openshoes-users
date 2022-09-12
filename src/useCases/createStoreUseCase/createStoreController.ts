@@ -19,7 +19,7 @@ export class CreateStoreController {
     })
 
     const relationLogistStores = await client.logistStores.create({
-      data: { store_id: store.id, logist_id: logist_code } as any
+      data: { store_id: store.id, logist_id: logist_code }
     })
 
     if (relationLogistStores) {

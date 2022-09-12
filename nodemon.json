@@ -4,6 +4,6 @@
   "ignore": ["node_modules", "dist"],
   "exec": "ts-node-dev --respawn --transpile-only  --ignore-watch node_modules --no-notify ./src/index.ts",
   "env": {
-    "PORT": 3000
+    "PORT": 3002
   }
 }
