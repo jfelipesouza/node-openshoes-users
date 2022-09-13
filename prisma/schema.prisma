@@ -67,12 +67,10 @@ model Stores {
 }
 
 model StoreStock {
-  store_id   String
-  product_id BigInt  @unique
-  store      Stores  @relation("store", fields: [store_id], references: [id])
-  product    Product @relation("product", fields: [product_id], references: [id])
-
-  @@id([store_id,product_id])
+  store_id    String
+  product_id  BigInt  @default(0)
+  store       Stores  @relation("store", fields: [store_id], references: [id])
+  @@id([store_id])
   @@map("store_stocks")
 }
 
@@ -86,7 +84,6 @@ model Category {
 
 model Product {
   id          BigInt      @id @unique @default(autoincrement())
-  store       StoreStock? @relation("product")
   available   Boolean?
   created_at  DateTime?   @db.Timestamp(6)
   image       String      @db.VarChar(255)
