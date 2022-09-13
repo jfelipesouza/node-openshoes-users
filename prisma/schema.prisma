@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider          = "postgresql"
-  url               = env("DATABASE_URL")
+  url               = env("SHADOW_DB")
 }
 
 model User {
@@ -60,16 +60,16 @@ model Stores {
   logistStore LogistStores[] @relation("stores")
   invetory    StoreStock[]   @relation("store")
 
-  created_at DateTime @default(now())
-  update_at  DateTime @updatedAt
+  created_at  DateTime @default(now())
+  update_at   DateTime @updatedAt
 
   @@map("stores")
 }
 
 model StoreStock {
   store_id    String
-  product_id  BigInt  @default(0)
-  store       Stores  @relation("store", fields: [store_id], references: [id])
+  product     BigInt?   
+  store       Stores    @relation("store", fields: [store_id], references: [id])
   @@id([store_id])
   @@map("store_stocks")
 }
