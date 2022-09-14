@@ -53,7 +53,7 @@ model LogistStores {
 model Stores {
   id          String         @id @unique @default(uuid())
   store_name  String        
-  cnpj        String         @unique
+  cnpj        String         
   store_type  String
   address     String?
   link        String?
