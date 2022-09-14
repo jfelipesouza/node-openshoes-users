@@ -19,7 +19,7 @@ const getStoreInfoController = new GetStoreInfoController()
 
 userRoutes.post('/', createUserController.create)
 userRoutes.delete('/', deleteUserController.delete)
-userRoutes.patch('/', updateUserInfoController.update)
+userRoutes.put('/', updateUserInfoController.update)
 
 userRoutes.post('/logist', createLogistController.create)
 userRoutes.post('/store', createStoreController.create)

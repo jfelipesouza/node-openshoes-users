@@ -10,11 +10,11 @@ export class UpdateUserInfoUseCase {
       code,
       store: {
         id: store.id,
-        cnpj: '',
-        store_name: '',
-        store_type: '',
-        link: '',
-        address: ''
+        cnpj: store.cnpj,
+        store_name: store.store_name,
+        store_type: store.store_type,
+        link: store.link,
+        address: store.address
       }
     }
 
@@ -27,12 +27,6 @@ export class UpdateUserInfoUseCase {
     const user = await client.user.findFirst({
       where: {
         id: userAccount.id_user
-      }
-    })
-
-    const stores = await client.stores.findFirst({
-      where: {
-        id: store.id
       }
     })
 
@@ -56,76 +50,22 @@ export class UpdateUserInfoUseCase {
       updatedUser.email = changeUserInfo.email
     }
 
-    if (stores.address !== store.address) {
-      await client.stores.update({
-        where: {
-          id: stores.id
-        },
-        data: {
-          address: store.address
-        }
-      })
-    }
-    if (stores.link !== store.link) {
-      await client.stores.update({
-        where: {
-          id: stores.id
-        },
-        data: {
-          link: store.link
-        }
-      })
-    }
-    if (stores.store_name !== store.store_name) {
-      await client.stores.update({
-        where: {
-          id: stores.id
-        },
-        data: {
-          store_name: store.store_name
-        }
-      })
-    }
-    if (stores.store_type !== store.store_type) {
-      await client.stores.update({
-        where: {
-          id: stores.id
-        },
-        data: {
-          store_type: store.store_type
-        }
-      })
-    }
-    if (stores.cnpj !== store.cnpj) {
-      await client.stores.update({
-        where: {
-          id: stores.id
-        },
-        data: {
-          cnpj: store.cnpj
-        }
-      })
-    }
-
-    if (store.store_name === stores.store_name) {
-      await client.stores.update({
-        where: {
-          id: stores.id,
-          store_name: store.store_name
-        },
-        data: {
-          store_name: store.store_name,
-          address: store.address,
-          cnpj: store.cnpj,
-          store_type: store.store_type,
-          link: store.link
-        }
-      })
-    }
+    await client.stores.update({
+      where: {
+        id: store.id
+      },
+      data: {
+        cnpj: updatedUser.store.cnpj,
+        address: updatedUser.store.address,
+        link: updatedUser.store.link,
+        store_name: updatedUser.store.store_name,
+        store_type: updatedUser.store.store_type
+      }
+    })
 
     const updatedStore = await client.stores.findFirst({
       where: {
-        id: stores.id
+        id: store.id
       }
     })
 
