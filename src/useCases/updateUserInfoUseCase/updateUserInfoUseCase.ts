@@ -107,22 +107,6 @@ export class UpdateUserInfoUseCase {
       })
     }
 
-    if (store.store_name === stores.store_name) {
-      await client.stores.update({
-        where: {
-          id: stores.id,
-          store_name: store.store_name
-        },
-        data: {
-          store_name: store.store_name,
-          address: store.address,
-          cnpj: store.cnpj,
-          store_type: store.store_type,
-          link: store.link
-        }
-      })
-    }
-
     const updatedStore = await client.stores.findFirst({
       where: {
         id: stores.id
